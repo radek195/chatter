@@ -1,4 +1,4 @@
-package pl.radek.chatter.infrastructure.controller;
+package pl.radek.chatter.interfaces.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.messaging.handler.annotation.DestinationVariable;

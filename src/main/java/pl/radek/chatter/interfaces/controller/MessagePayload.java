@@ -1,4 +1,4 @@
-package pl.radek.chatter.infrastructure.controller;
+package pl.radek.chatter.interfaces.controller;
 
 import lombok.Builder;
 import lombok.Data;
@@ -7,8 +7,9 @@ import java.util.UUID;
 
 @Data
 @Builder
-
-public class RegisterBody {
+public class MessagePayload {
+    private Long messageId;
+    private String content;
     private String senderNickname;
     private UUID senderId;
 }

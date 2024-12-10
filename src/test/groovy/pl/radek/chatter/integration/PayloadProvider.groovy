@@ -1,6 +1,6 @@
 package pl.radek.chatter.integration
 
-import pl.radek.chatter.infrastructure.controller.MessagePayload
+import pl.radek.chatter.interfaces.controller.MessagePayload
 
 trait PayloadProvider {
 

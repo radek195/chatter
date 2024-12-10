@@ -1,4 +1,4 @@
-package pl.radek.chatter.infrastructure.controller;
+package pl.radek.chatter.interfaces.controller;
 
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;

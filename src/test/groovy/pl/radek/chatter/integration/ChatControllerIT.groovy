@@ -4,13 +4,11 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment
 import org.springframework.boot.test.web.server.LocalServerPort
 import org.springframework.lang.Nullable
-import org.springframework.messaging.handler.annotation.MessageMapping
 import org.springframework.messaging.simp.stomp.StompFrameHandler
 import org.springframework.messaging.simp.stomp.StompHeaders
 import org.springframework.messaging.simp.stomp.StompSessionHandlerAdapter
 import pl.radek.chatter.config.SpecificationIT
-import pl.radek.chatter.infrastructure.controller.MessagePayload
-import pl.radek.chatter.infrastructure.controller.RegisterBody
+import pl.radek.chatter.interfaces.controller.MessagePayload
 import spock.lang.Ignore
 import spock.lang.Shared
 

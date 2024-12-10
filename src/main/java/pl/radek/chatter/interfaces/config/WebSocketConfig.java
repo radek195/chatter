@@ -1,4 +1,4 @@
-package pl.radek.chatter.infrastructure.config;
+package pl.radek.chatter.interfaces.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
