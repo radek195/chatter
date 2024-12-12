@@ -17,7 +17,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.concurrent.TimeUnit
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-class ChatControllerIT extends SpecificationIT implements PayloadProvider {
+class ChatMessagingControllerIT extends SpecificationIT implements PayloadProvider {
 
     @LocalServerPort
     int port
