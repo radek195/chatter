@@ -1,4 +1,4 @@
-package pl.radek.chatter.interfaces.controller;
+package pl.radek.chatter.interfaces.controller.chatmessaging;
 
 import lombok.Builder;
 import lombok.Data;

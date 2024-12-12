@@ -1,4 +1,4 @@
-package pl.radek.chatter.interfaces.controller;
+package pl.radek.chatter.interfaces.controller.chatmessaging;
 
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
