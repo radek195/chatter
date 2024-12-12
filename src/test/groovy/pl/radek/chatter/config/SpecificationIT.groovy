@@ -1,6 +1,5 @@
 package pl.radek.chatter.config
 
-import org.springframework.messaging.converter.ByteArrayMessageConverter
 import org.springframework.messaging.converter.MappingJackson2MessageConverter
 import org.springframework.web.socket.client.standard.StandardWebSocketClient
 import org.springframework.web.socket.messaging.WebSocketStompClient
