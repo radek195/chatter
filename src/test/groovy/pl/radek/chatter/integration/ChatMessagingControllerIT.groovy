@@ -7,7 +7,6 @@ import org.springframework.lang.Nullable
 import org.springframework.messaging.simp.stomp.StompFrameHandler
 import org.springframework.messaging.simp.stomp.StompHeaders
 import org.springframework.messaging.simp.stomp.StompSessionHandlerAdapter
-import pl.radek.chatter.config.SpecificationIT
 import pl.radek.chatter.interfaces.controller.chatmessaging.MessagePayload
 import spock.lang.Ignore
 import spock.lang.Shared
