@@ -10,6 +10,7 @@ import java.util.UUID;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(path = "/api")
+@CrossOrigin
 public class ChatRoomController {
 
     private final ChatroomService chatroomService;
