@@ -5,16 +5,12 @@ import pl.radek.chatter.interfaces.controller.chatmessaging.MessagePayload
 trait PayloadProvider {
 
     MessagePayload getMessagePayload(
-            Long messageId = 17L,
             String content = "Hello there!",
-            String senderNickname = "Marius",
-            UUID senderId = UUID.fromString("1a4a84d1-ec7f-40b0-8af3-4957d45defb3")
+            String senderNickname = "Marius"
     ) {
         MessagePayload.builder()
-                .messageId(messageId)
                 .content(content)
                 .senderNickname(senderNickname)
-                .senderId(senderId)
                 .build()
     }
 }
