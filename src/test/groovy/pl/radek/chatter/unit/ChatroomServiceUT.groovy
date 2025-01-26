@@ -1,6 +1,6 @@
 package pl.radek.chatter.unit
 
-import pl.radek.chatter.domain.ChatroomService
+import pl.radek.chatter.domain.chatroom.ChatroomService
 import spock.lang.Specification
 
 class ChatroomServiceUT extends Specification {

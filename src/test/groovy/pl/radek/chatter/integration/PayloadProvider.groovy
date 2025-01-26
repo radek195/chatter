@@ -1,14 +1,14 @@
 package pl.radek.chatter.integration
 
-import pl.radek.chatter.interfaces.controller.chatmessaging.MessagePayload
+import pl.radek.chatter.domain.message.Message
 
 trait PayloadProvider {
 
-    MessagePayload getMessagePayload(
+    Message getMessagePayload(
             String content = "Hello there!",
             String senderNickname = "Marius"
     ) {
-        MessagePayload.builder()
+        Message.builder()
                 .content(content)
                 .senderNickname(senderNickname)
                 .build()

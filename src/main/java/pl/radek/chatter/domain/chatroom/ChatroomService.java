@@ -1,4 +1,4 @@
-package pl.radek.chatter.domain;
+package pl.radek.chatter.domain.chatroom;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

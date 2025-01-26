@@ -1,4 +1,4 @@
-package pl.radek.chatter.domain;
+package pl.radek.chatter.domain.chatroom;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

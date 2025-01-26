@@ -9,7 +9,7 @@ import org.springframework.messaging.simp.stomp.StompHeaders
 import org.springframework.messaging.simp.stomp.StompSessionHandlerAdapter
 import org.springframework.web.socket.client.standard.StandardWebSocketClient
 import org.springframework.web.socket.messaging.WebSocketStompClient
-import pl.radek.chatter.interfaces.controller.chatmessaging.MessagePayload
+import pl.radek.chatter.domain.message.Message
 import spock.lang.Ignore
 import spock.lang.Shared
 import spock.lang.Specification
@@ -31,7 +31,7 @@ class ChatMessagingControllerIT extends Specification implements PayloadProvider
     final SEND_MESSAGE_ENDPOINT = "/app/message/"
     final SUB_ROOM_ENDPOINT = "/topic/message/room/"
 
-    private final BlockingQueue<MessagePayload> messages = new LinkedBlockingDeque<>()
+    private final BlockingQueue<Message> messages = new LinkedBlockingDeque<>()
 
 
     def setupSpec() {
@@ -66,12 +66,12 @@ class ChatMessagingControllerIT extends Specification implements PayloadProvider
     class DefaultStompFrameHandler implements StompFrameHandler {
         @Override
         Type getPayloadType(StompHeaders headers) {
-            return MessagePayload.class
+            return Message.class
         }
 
         @Override
         void handleFrame(StompHeaders headers, Object payload) {
-            messages.offer((MessagePayload) payload)
+            messages.offer((Message) payload)
         }
     }
 }
