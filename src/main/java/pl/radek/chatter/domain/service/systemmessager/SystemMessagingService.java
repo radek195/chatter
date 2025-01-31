@@ -1,12 +1,12 @@
-package pl.radek.chatter.domain.systemmessager;
+package pl.radek.chatter.domain.service.systemmessager;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
-import pl.radek.chatter.domain.message.Message;
-import pl.radek.chatter.domain.message.Type;
+import pl.radek.chatter.domain.model.message.Message;
+import pl.radek.chatter.domain.model.message.Type;
 
 public interface SystemMessagingService {
 

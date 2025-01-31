@@ -9,7 +9,7 @@ import org.springframework.messaging.simp.stomp.StompHeaders
 import org.springframework.messaging.simp.stomp.StompSessionHandlerAdapter
 import org.springframework.web.socket.client.standard.StandardWebSocketClient
 import org.springframework.web.socket.messaging.WebSocketStompClient
-import pl.radek.chatter.domain.message.Message
+import pl.radek.chatter.domain.model.message.Message
 import spock.lang.Ignore
 import spock.lang.Shared
 import spock.lang.Specification

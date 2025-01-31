@@ -1,4 +1,4 @@
-package pl.radek.chatter.domain.subscriptionregistry;
+package pl.radek.chatter.domain.model.subscriber;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

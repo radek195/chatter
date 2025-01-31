@@ -2,7 +2,7 @@ package pl.radek.chatter.unit
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.springframework.messaging.simp.SimpMessagingTemplate
-import pl.radek.chatter.domain.systemmessager.SystemMessagingService
+import pl.radek.chatter.domain.service.systemmessager.SystemMessagingService
 import spock.lang.Specification
 import spock.lang.Subject
 

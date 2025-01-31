@@ -3,7 +3,7 @@ package pl.radek.chatter.interfaces.controller.chatroom;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import pl.radek.chatter.domain.chatroom.ChatroomService;
+import pl.radek.chatter.domain.service.chatroom.ChatroomService;
 
 import java.util.UUID;
 

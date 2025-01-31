@@ -1,7 +1,8 @@
-package pl.radek.chatter.domain.subscriptionregistry;
+package pl.radek.chatter.domain.service.subscriptionregistry;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import pl.radek.chatter.domain.model.subscriber.Subscriber;
 
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;

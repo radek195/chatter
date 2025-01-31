@@ -1,7 +1,8 @@
-package pl.radek.chatter.domain.subscriptionregistry;
+package pl.radek.chatter.domain.service.subscriptionregistry;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import pl.radek.chatter.domain.model.subscriber.Subscriber;
 
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;

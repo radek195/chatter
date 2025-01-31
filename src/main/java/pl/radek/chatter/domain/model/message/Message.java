@@ -1,4 +1,4 @@
-package pl.radek.chatter.domain.message;
+package pl.radek.chatter.domain.model.message;
 
 import lombok.Builder;
 import lombok.Data;

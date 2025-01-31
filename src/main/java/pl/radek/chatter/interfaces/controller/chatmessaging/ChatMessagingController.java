@@ -6,7 +6,7 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
-import pl.radek.chatter.domain.message.Message;
+import pl.radek.chatter.domain.model.message.Message;
 
 @Controller
 @RequiredArgsConstructor

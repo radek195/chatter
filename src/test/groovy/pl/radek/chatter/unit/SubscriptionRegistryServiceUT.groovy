@@ -1,7 +1,7 @@
 package pl.radek.chatter.unit
 
-import pl.radek.chatter.domain.subscriptionregistry.Subscriber
-import pl.radek.chatter.domain.subscriptionregistry.SubscriptionRegistryService
+import pl.radek.chatter.domain.model.subscriber.Subscriber
+import pl.radek.chatter.domain.service.subscriptionregistry.SubscriptionRegistryService
 import spock.lang.Specification
 import spock.lang.Subject
 
