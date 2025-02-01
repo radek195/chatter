@@ -4,6 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.radek.chatter.domain.model.subscriber.Subscriber;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
@@ -11,7 +13,7 @@ import java.util.concurrent.ConcurrentMap;
 public interface SubscriptionRegistryService {
     void addSubscription(String topic, Subscriber subscriber);
 
-    Subscriber removeSubscription(String sessionId);
+    Map<String, String> removeSubscription(String sessionId);
 
     @Service
     @RequiredArgsConstructor
@@ -26,10 +28,10 @@ public interface SubscriptionRegistryService {
                     .add(subscriber);
         }
 
-        public Subscriber removeSubscription(String sessionId) {
-            String topicId = sessionToTopic.remove(sessionId);
+        public Map<String, String> removeSubscription(String sessionId) {
+            String topic = sessionToTopic.remove(sessionId);
 
-            Set<Subscriber> subscribers = topicToSubscribers.get(topicId);
+            Set<Subscriber> subscribers = topicToSubscribers.get(topic);
             Subscriber subscriberToRemove = subscribers.stream()
                     .filter(subscriber -> subscriber.getSessionId().equals(sessionId))
                     .findFirst().orElseThrow();
@@ -37,9 +39,12 @@ public interface SubscriptionRegistryService {
             subscribers.remove(subscriberToRemove);
 
             if (subscribers.isEmpty()) {
-                topicToSubscribers.remove(topicId);
+                topicToSubscribers.remove(topic);
             }
-            return subscriberToRemove;
+            Map<String, String> result = new HashMap<>();
+            result.put("nickname", subscriberToRemove.getNickname());
+            result.put("topic", topic);
+            return result;
         }
     }
 }

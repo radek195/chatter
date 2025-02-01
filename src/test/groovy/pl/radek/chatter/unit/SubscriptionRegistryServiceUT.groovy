@@ -14,7 +14,7 @@ class SubscriptionRegistryServiceUT extends Specification {
     ConcurrentMap<String, Set<Subscriber>> topicToSubscribers = new ConcurrentHashMap<>()
     
     @Subject
-    SubscriptionRegistryService subscriptionRegistryService;
+    SubscriptionRegistryService subscriptionRegistryService
     
     def setup() {
         sessionToTopic = new ConcurrentHashMap<>()
@@ -28,7 +28,7 @@ class SubscriptionRegistryServiceUT extends Specification {
             String sessionId = "8765"
             String topic = "/topic/message/room/abcd"
             Subscriber subscriber = new Subscriber(5, "John", sessionId)
-            
+        
         when: "A user has subscribed"
             subscriptionRegistryService.addSubscription(topic, subscriber)
         
@@ -42,13 +42,13 @@ class SubscriptionRegistryServiceUT extends Specification {
     def "Should add two subscribers to the same topic"() {
         given: "Test data"
             String topic = "/topic/message/room/abcd"
-        
+            
             String firstSessionId = "102938"
             Subscriber firstSubscriber = new Subscriber(8, "John", firstSessionId)
             
             String secondSessionId = "102939"
             Subscriber secondSubscriber = new Subscriber(9, "Marcus", secondSessionId)
-            
+        
         when: "Two users have subscribed"
             subscriptionRegistryService.addSubscription(topic, firstSubscriber)
             subscriptionRegistryService.addSubscription(topic, secondSubscriber)
@@ -92,7 +92,7 @@ class SubscriptionRegistryServiceUT extends Specification {
         given: "Test data"
             String firstTopic = "/topic/message/room/abcd"
             String secondTopic = "/topic/message/room/lmnop"
-        
+            
             String firstSessionId = "10001"
             Subscriber subscriberA = new Subscriber(8, "John", firstSessionId)
             
@@ -110,7 +110,9 @@ class SubscriptionRegistryServiceUT extends Specification {
             subscriptionRegistryService.addSubscription(secondTopic, subscriberC)
         
         when: "User B has unsubscribed"
-            subscriptionRegistryService.removeSubscription(secondSessionId)
+            def topicNicknameMap = subscriptionRegistryService.removeSubscription(secondSessionId)
+            topicNicknameMap.get("nickname") == "Thomas"
+            topicNicknameMap.get("topic") == "/topic/message/room/lmnop"
         
         then: "Relation session-topic and topic-subscriber should exist for user A"
             sessionToTopic.get(firstSessionId) == firstTopic
