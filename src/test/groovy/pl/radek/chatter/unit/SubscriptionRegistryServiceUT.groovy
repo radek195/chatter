@@ -10,33 +10,26 @@ import java.util.concurrent.ConcurrentMap
 
 class SubscriptionRegistryServiceUT extends Specification {
     
-    ConcurrentMap<String, String> sessionToTopic = new ConcurrentHashMap<>()
-    ConcurrentMap<String, Set<Subscriber>> topicToSubscribers = new ConcurrentHashMap<>()
+    ConcurrentMap<String, Subscriber> sessionSubscriberMap = new ConcurrentHashMap<>()
     
     @Subject
     SubscriptionRegistryService subscriptionRegistryService
     
     def setup() {
-        sessionToTopic = new ConcurrentHashMap<>()
-        topicToSubscribers = new ConcurrentHashMap<>()
-        
-        subscriptionRegistryService = new SubscriptionRegistryService.Impl(sessionToTopic, topicToSubscribers)
+        subscriptionRegistryService = new SubscriptionRegistryService.Impl(sessionSubscriberMap)
     }
     
     def "Should add new subscriber"() {
         given: "Test data"
             String sessionId = "8765"
             String topic = "/topic/message/room/abcd"
-            Subscriber subscriber = new Subscriber(5, "John", sessionId)
+            Subscriber subscriber = new Subscriber(5, "John", topic)
         
         when: "A user has subscribed"
-            subscriptionRegistryService.addSubscription(topic, subscriber)
+            subscriptionRegistryService.addSubscription(sessionId, subscriber)
         
-        then: "Relation session-topic should exist"
-            sessionToTopic.get(sessionId) == topic
-        
-        and: "Relation topic-subscriber should exist"
-            topicToSubscribers.get(topic).contains(subscriber)
+        then: "Subscriber should exist under sessionId"
+            sessionSubscriberMap.get(sessionId) == subscriber
     }
     
     def "Should add two subscribers to the same topic"() {
@@ -44,86 +37,40 @@ class SubscriptionRegistryServiceUT extends Specification {
             String topic = "/topic/message/room/abcd"
             
             String firstSessionId = "102938"
-            Subscriber firstSubscriber = new Subscriber(8, "John", firstSessionId)
+            Subscriber firstSubscriber = new Subscriber(8, "John", topic)
             
             String secondSessionId = "102939"
-            Subscriber secondSubscriber = new Subscriber(9, "Marcus", secondSessionId)
+            Subscriber secondSubscriber = new Subscriber(9, "Marcus", topic)
         
         when: "Two users have subscribed"
-            subscriptionRegistryService.addSubscription(topic, firstSubscriber)
-            subscriptionRegistryService.addSubscription(topic, secondSubscriber)
+            subscriptionRegistryService.addSubscription(firstSessionId, firstSubscriber)
+            subscriptionRegistryService.addSubscription(secondSessionId, secondSubscriber)
         
-        then: "One to one session-topic relation should exist"
-            sessionToTopic.get(firstSessionId) == topic
-            sessionToTopic.get(secondSessionId) == topic
+        then: "Subscribers should exist under different sessionId"
+            sessionSubscriberMap.get(firstSessionId) == firstSubscriber
+            sessionSubscriberMap.get(secondSessionId) == secondSubscriber
         
-        and: "One to many topic-subscriber relation should exist"
-            topicToSubscribers.get(topic).contains(firstSubscriber)
-            topicToSubscribers.get(topic).contains(secondSubscriber)
     }
     
-    def "Should add two subscribers to different topics"() {
+    def "Should return correct subscriber"() {
         given: "Test data"
             String firstTopic = "/topic/message/room/abcd"
             String secondTopic = "/topic/message/room/lmnop"
             
             String firstSessionId = "102938"
-            Subscriber firstSubscriber = new Subscriber(8, "John", firstSessionId)
+            Subscriber firstSubscriber = new Subscriber(8, "John", firstTopic)
             
             String secondSessionId = "102555"
-            Subscriber secondSubscriber = new Subscriber(9, "Marcus", secondSessionId)
+            Subscriber secondSubscriber = new Subscriber(9, "Marcus", secondTopic)
         
         when: "Two users subscribe to separate topics"
-            subscriptionRegistryService.addSubscription(firstTopic, firstSubscriber)
-            subscriptionRegistryService.addSubscription(secondTopic, secondSubscriber)
+            subscriptionRegistryService.addSubscription(firstSessionId, firstSubscriber)
+            subscriptionRegistryService.addSubscription(secondSessionId, secondSubscriber)
         
-        then: "Relation session-topic should exist for first user only"
-            sessionToTopic.get(firstSessionId) == firstTopic
-            topicToSubscribers.get(firstTopic).contains(firstSubscriber)
-            !topicToSubscribers.get(firstTopic).contains(secondSubscriber)
+        then: "Should return correct subscriber"
+            Subscriber removedSubscriber = subscriptionRegistryService.removeSubscription(firstSessionId)
+            removedSubscriber == firstSubscriber
         
-        and: "Relation session-topic should exist for second user only"
-            sessionToTopic.get(secondSessionId) == secondTopic
-            topicToSubscribers.get(secondTopic).contains(secondSubscriber)
-            !topicToSubscribers.get(secondTopic).contains(firstSubscriber)
     }
     
-    def "Should remove correct subscriber"() {
-        given: "Test data"
-            String firstTopic = "/topic/message/room/abcd"
-            String secondTopic = "/topic/message/room/lmnop"
-            
-            String firstSessionId = "10001"
-            Subscriber subscriberA = new Subscriber(8, "John", firstSessionId)
-            
-            String secondSessionId = "10002"
-            Subscriber subscriberB = new Subscriber(9, "Marcus", secondSessionId)
-            
-            String thirdSessionId = "10003"
-            Subscriber subscriberC = new Subscriber(10, "Thomas", thirdSessionId)
-        
-        and: "Users A and B subscribed to the same topic"
-            subscriptionRegistryService.addSubscription(firstTopic, subscriberA)
-            subscriptionRegistryService.addSubscription(firstTopic, subscriberB)
-        
-        and: "User C subscribed to different topic"
-            subscriptionRegistryService.addSubscription(secondTopic, subscriberC)
-        
-        when: "User B has unsubscribed"
-            def topicNicknameMap = subscriptionRegistryService.removeSubscription(secondSessionId)
-            topicNicknameMap.get("nickname") == "Thomas"
-            topicNicknameMap.get("topic") == "/topic/message/room/lmnop"
-        
-        then: "Relation session-topic and topic-subscriber should exist for user A"
-            sessionToTopic.get(firstSessionId) == firstTopic
-            topicToSubscribers.get(firstTopic).contains(subscriberA)
-        
-        and: "Relation session-topic and topic-subscriber should exist for user C"
-            sessionToTopic.get(thirdSessionId) == secondTopic
-            topicToSubscribers.get(secondTopic).contains(subscriberC)
-        
-        and: "No relation of topic-subscriber should exist for user B"
-            !topicToSubscribers.get(firstTopic).contains(subscriberB)
-            !topicToSubscribers.get(secondTopic).contains(subscriberB)
-    }
 }

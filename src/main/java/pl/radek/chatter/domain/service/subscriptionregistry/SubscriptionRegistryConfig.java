@@ -4,7 +4,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import pl.radek.chatter.domain.model.subscriber.Subscriber;
 
-import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
@@ -12,12 +11,7 @@ import java.util.concurrent.ConcurrentMap;
 public class SubscriptionRegistryConfig {
 
     @Bean
-    public ConcurrentMap<String, String> getSessionToTopicBean() {
-        return new ConcurrentHashMap<>();
-    }
-
-    @Bean
-    public ConcurrentMap<String, Set<Subscriber>> getTopicToSubscribersBean() {
+    public ConcurrentMap<String, Subscriber> getSessionSubscriberMapBean() {
         return new ConcurrentHashMap<>();
     }
 

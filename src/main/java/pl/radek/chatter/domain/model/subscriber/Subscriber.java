@@ -8,5 +8,5 @@ import lombok.Data;
 public class Subscriber {
     private long id;
     private String nickname;
-    private String sessionId;
+    private String topic;
 }

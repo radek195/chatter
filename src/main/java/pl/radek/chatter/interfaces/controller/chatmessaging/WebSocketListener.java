@@ -27,18 +27,19 @@ public class WebSocketListener {
 
     @EventListener
     public void handleWebSocketSubscribeListener(SessionSubscribeEvent event) {
-
-        String destination = getDestination(getStompHeaderAccessor(event));
+        String topic = getDestination(getStompHeaderAccessor(event));
         String nickname = getNickname(getStompHeaderAccessor(event));
         String sessionId = getSessionId(getStompHeaderAccessor(event));
-        subscriptionFacade.handleSubscription(destination, new Subscriber(0, nickname, sessionId)); //id to be amended
-        System.out.println("Received a new web socket subscription. " + nickname);
+
+        subscriptionFacade.handleSubscription(sessionId, new Subscriber(0, nickname, topic)); //id to be amended
+        System.out.println("Received a new web socket subscription. SessionId: " + sessionId);
     }
 
     @EventListener
     public void handleWebSocketUnsubscribeListener(SessionUnsubscribeEvent event) {
-        System.out.println("Received a new web socket unsubscription");
-        subscriptionFacade.handleUnsubscription(getSessionId(getStompHeaderAccessor(event)));
+        String sessionId = getSessionId(getStompHeaderAccessor(event));
+        System.out.println("Received a new web socket unsubscription SessionId: " + sessionId);
+        subscriptionFacade.handleUnsubscription(sessionId);
 
     }
 
