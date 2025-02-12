@@ -1,16 +1,19 @@
 spring:
+  config:
+    import: optional:file:.env[.properties]
   application:
     name: chatter
   datasource:
-    url: ${DB_URL}
-    username: ${DB_USERNAME}
-    password: ${DB_PASSWORD}
+    url: ${URL}
+    username: ${USER}
+    password: ${PASSWORD}
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: validate
     show-sql: true
     properties:
       hibernate:
+        default-schema: chatter
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
 

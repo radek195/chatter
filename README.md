@@ -29,14 +29,21 @@ Additionally, system messages are integrated to notify users when someone joins 
 
 1. Clone the repository:
 
-    `git clone https://github.com/radek195/chatter.git`
-
-
+   `git clone https://github.com/radek195/chatter.git`
 2. Navigate to the project directory:
 
-    `cd chatter`
+   `cd chatter`
+3. Run
+
+   `docker-compose -f docker-compose.yaml up`
+4. Create .env file in project root directory with the following variables:
+   - `URL=jdbc:postgresql://localhost:5432/postgres`
+   - `USER=postgres` 
+   - `PASSWORD=password` 
+   - `LOCATIONS=src/main/resources/db/migration/`
+   - `SCHEMA=chatter`
+   - `FLYWAY_PATH=*path to your flyway*`
 
 
-3. Build and run the application:
-
-    `./mvnw spring-boot:run`
+5. Build and run the application:
+    `./gradlew bootRun`

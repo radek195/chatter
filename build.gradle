@@ -18,7 +18,6 @@ version = '0.0.1-SNAPSHOT'
 description = 'chatter'
 
 apply from: 'gradle/test.gradle'
-apply from: 'gradle/flyway.gradle'
 
 java {
     toolchain {
