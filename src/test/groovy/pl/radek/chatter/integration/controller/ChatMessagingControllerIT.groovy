@@ -1,4 +1,4 @@
-package pl.radek.chatter.integration
+package pl.radek.chatter.integration.controller
 
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment

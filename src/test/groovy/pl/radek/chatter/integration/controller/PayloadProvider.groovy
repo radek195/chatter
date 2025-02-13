@@ -1,4 +1,4 @@
-package pl.radek.chatter.integration
+package pl.radek.chatter.integration.controller
 
 import pl.radek.chatter.domain.model.message.Message
 
