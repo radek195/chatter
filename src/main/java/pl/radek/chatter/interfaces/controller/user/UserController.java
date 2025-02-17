@@ -15,8 +15,8 @@ public class UserController {
 
     private final UserService userService;
 
-    @PostMapping("/guest")
-    public Long createGuestUser(@Valid @RequestBody GuestRequest request) {
+    @PostMapping("/user")
+    public Long createGuestUser(@Valid @RequestBody UserRequest request) {
         return userService.createGuestUser(request.toUserDto());
     }
 

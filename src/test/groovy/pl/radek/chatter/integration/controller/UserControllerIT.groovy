@@ -20,7 +20,7 @@ class UserControllerIT extends Specification {
   @MockBean
   UserService userService
   
-  def "Should return error message when nickname is too short"() {
+  def "Should validate nickname and age."() {
     given:
       def requestBody = """
         {
@@ -32,7 +32,7 @@ class UserControllerIT extends Specification {
     
     when:
       def response = mockMvc.perform(
-        post("/api/guest")
+        post("/api/user")
           .content(requestBody)
           .contentType(MediaType.APPLICATION_JSON)
       ).andReturn().response
@@ -49,6 +49,28 @@ class UserControllerIT extends Specification {
       "Lenny"  | 14  | 400    | "You must be 16 or older."
       "Lenny"  | 15  | 400    | "You must be 16 or older."
       "Lenny"  | 16  | 200    | ""
+  }
+  
+  def "Should validate gender."() {
+    given:
+      def requestBody = """
+        {
+          "nickname": "Lenny",
+          "age": 27
+        }
+      """
+    
+    when:
+      def response = mockMvc.perform(
+        post("/api/user")
+          .content(requestBody)
+          .contentType(MediaType.APPLICATION_JSON)
+      ).andReturn().response
+    
+    then:
+      response.status == 400
+      response.contentAsString.contains("You must provide your gender.")
+    
   }
   
 }

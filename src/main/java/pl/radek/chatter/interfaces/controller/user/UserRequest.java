@@ -8,15 +8,14 @@ import pl.radek.chatter.domain.service.user.User;
 import pl.radek.chatter.infrastructure.repository.Gender;
 
 @Getter
-public class GuestRequest {
+public class UserRequest {
 
-    @NotNull
     @Size(min = 3, max = 18,
             message = "Nickname must be between 3 and 18 characters.")
     private String nickname;
+    @NotNull(message = "You must provide your gender.")
     private Gender gender;
 
-    @NotNull
     @Min(value = 16, message = "You must be 16 or older.")
     private int age;
 
