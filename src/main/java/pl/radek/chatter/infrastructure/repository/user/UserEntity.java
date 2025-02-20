@@ -1,13 +1,19 @@
-package pl.radek.chatter.infrastructure.repository;
+package pl.radek.chatter.infrastructure.repository.user;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import pl.radek.chatter.domain.model.user.Gender;
+import pl.radek.chatter.infrastructure.repository.user_preference.UserPreferenceEntity;
 
 @Entity
 @Table(name = "users")
 @Builder
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class UserEntity {
 
     @Id
@@ -23,4 +29,10 @@ public class UserEntity {
     @Enumerated(EnumType.STRING)
     private Gender gender;
     private int age;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_preference_id", referencedColumnName = "id")
+    private UserPreferenceEntity userPreference;
+
 }
+

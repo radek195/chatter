@@ -2,10 +2,7 @@ package pl.radek.chatter.interfaces.controller.user;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pl.radek.chatter.domain.service.user.UserService;
 
 @RestController
@@ -18,6 +15,11 @@ public class UserController {
     @PostMapping("/user")
     public Long createGuestUser(@Valid @RequestBody UserRequest request) {
         return userService.createGuestUser(request.toUserDto());
+    }
+
+    @PutMapping("/user/{id}/preference")
+    public void addUserPreferences(@PathVariable Long id, @Valid @RequestBody UserPreferenceRequest request) {
+        userService.addUserPreferenceForUser(request.toDto(), id);
     }
 
 }

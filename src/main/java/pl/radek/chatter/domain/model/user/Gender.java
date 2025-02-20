@@ -1,4 +1,4 @@
-package pl.radek.chatter.infrastructure.repository;
+package pl.radek.chatter.domain.model.user;
 
 public enum Gender {
     MALE,

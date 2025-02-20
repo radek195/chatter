@@ -1,15 +1,17 @@
 package pl.radek.chatter.integration.controller
 
+import org.spockframework.spring.SpringBean
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
-import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockMvc
+import pl.radek.chatter.domain.model.user_preference.UserPreference
 import pl.radek.chatter.domain.service.user.UserService
 import pl.radek.chatter.interfaces.controller.user.UserController
 import spock.lang.Specification
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put
 
 @WebMvcTest(UserController)
 class UserControllerIT extends Specification {
@@ -17,10 +19,10 @@ class UserControllerIT extends Specification {
   @Autowired
   MockMvc mockMvc
   
-  @MockBean
-  UserService userService
+  @SpringBean
+  UserService userService = Mock()
   
-  def "Should validate nickname and age."() {
+  def "Should validate nickname and age when POST /user is sent."() {
     given:
       def requestBody = """
         {
@@ -51,7 +53,7 @@ class UserControllerIT extends Specification {
       "Lenny"  | 16  | 200    | ""
   }
   
-  def "Should validate gender."() {
+  def "Should validate gender when POST /user is sent."() {
     given:
       def requestBody = """
         {
@@ -73,4 +75,60 @@ class UserControllerIT extends Specification {
     
   }
   
+  def "Should add user preference when POST /user/{id}/preference is sent."() {
+    given:
+      def requestBody = """
+        {
+          "minAge": "21",
+          "maxAge": "28"
+        }
+      """
+      
+      def expectedDto = UserPreference.builder()
+        .minAge(21)
+        .maxAge(28)
+        .build()
+      def expectedId = 8L
+    
+    when:
+      def response = mockMvc.perform(
+        put("/api/user/$expectedId/preference")
+          .content(requestBody)
+          .contentType(MediaType.APPLICATION_JSON)
+      ).andReturn().response
+    
+    then:
+      response.status == 200
+    
+    and:
+      1 * userService.addUserPreferenceForUser(expectedDto, expectedId)
+    
+  }
+  
+  def "Should validate minAge when POST /user/{id}/preference is sent."() {
+    given:
+      def requestBody = """
+        {
+          "minAge": "$age",
+          "maxAge": "28"
+        }
+      """
+    
+    when:
+      def response = mockMvc.perform(
+        put("/api/user/1/preference")
+          .content(requestBody)
+          .contentType(MediaType.APPLICATION_JSON)
+      ).andReturn().response
+    
+    then:
+      response.status == status
+      response.contentAsString.contains(message)
+    
+    where:
+      age | status | message
+      15  | 400    | "Minimum age cannot be lower than 16."
+      16  | 200    | ""
+      17  | 200    | ""
+  }
 }

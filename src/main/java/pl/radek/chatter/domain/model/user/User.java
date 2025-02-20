@@ -1,9 +1,8 @@
-package pl.radek.chatter.domain.service.user;
+package pl.radek.chatter.domain.model.user;
 
 import lombok.Builder;
 import lombok.Data;
-import pl.radek.chatter.infrastructure.repository.Gender;
-import pl.radek.chatter.infrastructure.repository.UserEntity;
+import pl.radek.chatter.infrastructure.repository.user.UserEntity;
 
 @Data
 @Builder

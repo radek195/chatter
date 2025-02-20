@@ -4,8 +4,8 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
-import pl.radek.chatter.domain.service.user.User;
-import pl.radek.chatter.infrastructure.repository.Gender;
+import pl.radek.chatter.domain.model.user.User;
+import pl.radek.chatter.domain.model.user.Gender;
 
 @Getter
 public class UserRequest {

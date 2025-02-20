@@ -3,4 +3,6 @@ dependencies {
     testImplementation 'org.spockframework:spock-core:2.4-M4-groovy-4.0'
     testImplementation 'org.spockframework:spock-spring:2.4-M4-groovy-4.0'
     testImplementation 'org.apache.groovy:groovy:4.0.22'
+    testRuntimeOnly 'com.h2database:h2'
+    testImplementation 'org.apache.groovy:groovy-sql:4.0.22'
 }
