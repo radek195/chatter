@@ -15,59 +15,59 @@ import spock.lang.Subject
 @DataJpaTest
 @ActiveProfiles('test')
 class UserRepositoryIT extends Specification implements DataProvider {
-  
-  @Autowired
-  UserRepository userRepository
-  
-  @Subject
-  UserService userService
-  
-  
-  def setup() {
-    userService = new UserService.Impl(userRepository)
-  }
-  
-  @Sql('/sql/InsertUser.sql')
-  def 'Should save user preferences to existing user.'() {
-    given:
-      def expectedMinAge = 25
-      def expectedMaxAge = 38
-      def userPreferenceDto = getUserPreference(expectedMinAge, expectedMaxAge)
     
-    when:
-      userService.addUserPreferenceForUser(userPreferenceDto, 1)
+    @Autowired
+    UserRepository userRepository
     
-    then:
-      UserEntity actualUser = userRepository.findById(1).orElseThrow()
-      
-      actualUser.userPreference.minAge == expectedMinAge
-      actualUser.userPreference.maxAge == expectedMaxAge
-  }
-  
-  @Sql('/sql/InsertUserWithPreferences.sql')
-  def 'Should replace user preferences to existing user.'() {
-    given:
-      UserEntity existingUser = userRepository.findById(1).orElseThrow()
-      existingUser.userPreference.minAge == 36
-      existingUser.userPreference.maxAge == 45
+    @Subject
+    UserService userService
     
-    and:
-      def userPreferenceDto = getUserPreference(expectedMinAge, expectedMaxAge)
     
-    when:
-      userService.addUserPreferenceForUser(userPreferenceDto, 1)
+    def setup() {
+        userService = new UserService.Impl(userRepository)
+    }
     
-    then:
-      UserEntity actualUser = userRepository.findById(1).orElseThrow()
-      
-      actualUser.userPreference.minAge == expectedMinAge
-      actualUser.userPreference.maxAge == expectedMaxAge
+    @Sql('/sql/InsertUser.sql')
+    def 'Should save user preferences to existing user.'() {
+        given:
+            def expectedMinAge = 25
+            def expectedMaxAge = 38
+            def userPreferenceDto = getUserPreference(expectedMinAge, expectedMaxAge)
+        
+        when:
+            userService.addUserPreferenceForUser(userPreferenceDto, 1)
+        
+        then:
+            UserEntity actualUser = userRepository.findById(1).orElseThrow()
+            
+            actualUser.userPreference.minAge == expectedMinAge
+            actualUser.userPreference.maxAge == expectedMaxAge
+    }
     
-    where:
-      expectedMinAge | expectedMaxAge
-      31             | 48
-      null           | 47
-      19             | null
-  }
-  
+    @Sql('/sql/InsertUserWithPreferences.sql')
+    def 'Should replace user preferences to existing user.'() {
+        given:
+            UserEntity existingUser = userRepository.findById(1).orElseThrow()
+            existingUser.userPreference.minAge == 36
+            existingUser.userPreference.maxAge == 45
+        
+        and:
+            def userPreferenceDto = getUserPreference(expectedMinAge, expectedMaxAge)
+        
+        when:
+            userService.addUserPreferenceForUser(userPreferenceDto, 1)
+        
+        then:
+            UserEntity actualUser = userRepository.findById(1).orElseThrow()
+            
+            actualUser.userPreference.minAge == expectedMinAge
+            actualUser.userPreference.maxAge == expectedMaxAge
+        
+        where:
+            expectedMinAge | expectedMaxAge
+            31             | 48
+            null           | 47
+            19             | null
+    }
+    
 }

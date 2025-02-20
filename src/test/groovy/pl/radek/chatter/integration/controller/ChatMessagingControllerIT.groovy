@@ -21,54 +21,54 @@ import java.util.concurrent.TimeUnit
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 class ChatMessagingControllerIT extends Specification implements PayloadProvider {
-
+    
     @LocalServerPort
     int port
-
+    
     @Shared
     WebSocketStompClient stompClient
-
+    
     final SEND_MESSAGE_ENDPOINT = "/app/message/"
     final SUB_ROOM_ENDPOINT = "/topic/message/room/"
-
+    
     private final BlockingQueue<Message> messages = new LinkedBlockingDeque<>()
-
-
+    
+    
     def setupSpec() {
         stompClient = new WebSocketStompClient(new StandardWebSocketClient())
         stompClient.messageConverter = new MappingJackson2MessageConverter()
     }
-
+    
     @Ignore
     //TODO fix this test!!!
     def "Should send message to correct room"() {
         given:
-        def session = stompClient.connect(getUrl(), new StompSessionHandlerAdapter() {})
+            def session = stompClient.connect(getUrl(), new StompSessionHandlerAdapter() {})
                 .get(1, TimeUnit.SECONDS)
-
-        def payload = getMessagePayload()
-        def roomId = "25c2caca-dc51-4e0c-ac93-90aefcefe37b"
-
-        session.subscribe(SUB_ROOM_ENDPOINT + roomId, new DefaultStompFrameHandler())
-
+            
+            def payload = getMessagePayload()
+            def roomId = "25c2caca-dc51-4e0c-ac93-90aefcefe37b"
+            
+            session.subscribe(SUB_ROOM_ENDPOINT + roomId, new DefaultStompFrameHandler())
+        
         when:
-        session.send(SEND_MESSAGE_ENDPOINT + roomId, payload)
-
+            session.send(SEND_MESSAGE_ENDPOINT + roomId, payload)
+        
         then:
-        String receivedMessage = messages.poll(10, TimeUnit.SECONDS)
-        println receivedMessage
+            String receivedMessage = messages.poll(10, TimeUnit.SECONDS)
+            println receivedMessage
     }
-
+    
     def getUrl() {
         "ws://localhost:${this.port}/websocket"
     }
-
+    
     class DefaultStompFrameHandler implements StompFrameHandler {
         @Override
         Type getPayloadType(StompHeaders headers) {
             return Message.class
         }
-
+        
         @Override
         void handleFrame(StompHeaders headers, Object payload) {
             messages.offer((Message) payload)
