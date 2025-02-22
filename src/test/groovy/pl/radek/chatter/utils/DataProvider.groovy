@@ -1,6 +1,6 @@
 package pl.radek.chatter.utils
 
-import pl.radek.chatter.domain.model.user_preference.UserPreference
+import pl.radek.chatter.domain.model.user.preference.UserPreference
 
 trait DataProvider {
   

@@ -6,7 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import pl.radek.chatter.domain.model.user.Gender;
-import pl.radek.chatter.infrastructure.repository.user_preference.UserPreferenceEntity;
+import pl.radek.chatter.infrastructure.repository.user.preference.UserPreferenceEntity;
 
 @Entity
 @Table(name = "users")

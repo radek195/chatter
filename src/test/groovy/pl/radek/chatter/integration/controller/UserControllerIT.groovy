@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockMvc
-import pl.radek.chatter.domain.model.user_preference.UserPreference
+import pl.radek.chatter.domain.model.user.preference.UserPreference
 import pl.radek.chatter.domain.service.user.UserService
 import pl.radek.chatter.interfaces.controller.user.UserController
 import spock.lang.Specification

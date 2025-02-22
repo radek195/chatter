@@ -2,7 +2,7 @@ package pl.radek.chatter.interfaces.controller.user;
 
 import jakarta.validation.constraints.Min;
 import lombok.Getter;
-import pl.radek.chatter.domain.model.user_preference.UserPreference;
+import pl.radek.chatter.domain.model.user.preference.UserPreference;
 
 @Getter
 public class UserPreferenceRequest {

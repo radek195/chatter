@@ -3,11 +3,11 @@ package pl.radek.chatter.domain.service.user;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.radek.chatter.domain.model.user.User;
-import pl.radek.chatter.domain.model.user_preference.UserPreference;
+import pl.radek.chatter.domain.model.user.preference.UserPreference;
 import pl.radek.chatter.infrastructure.exceptions.UserNotFoundException;
 import pl.radek.chatter.infrastructure.repository.user.UserEntity;
 import pl.radek.chatter.infrastructure.repository.user.UserRepository;
-import pl.radek.chatter.infrastructure.repository.user_preference.UserPreferenceEntity;
+import pl.radek.chatter.infrastructure.repository.user.preference.UserPreferenceEntity;
 
 public interface UserService {
     Long createGuestUser(User user);

@@ -1,11 +1,11 @@
-package pl.radek.chatter.infrastructure.repository.user_preference;
+package pl.radek.chatter.infrastructure.repository.user.preference;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import pl.radek.chatter.domain.model.user_preference.UserPreference;
+import pl.radek.chatter.domain.model.user.preference.UserPreference;
 
 @Entity
 @Table(name = "user_preferences")
