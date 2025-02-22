@@ -44,6 +44,7 @@ Additionally, system messages are integrated to notify users when someone joins 
    - `SCHEMA=chatter`
    - `FLYWAY_PATH=*path to your flyway*`
 
+5. Run flyway migration script from ./flywayMigrate.sh
 
-5. Build and run the application:
+6. Build and run the application:
     `./gradlew bootRun`
