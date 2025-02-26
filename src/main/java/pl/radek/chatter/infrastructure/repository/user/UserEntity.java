@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import pl.radek.chatter.domain.model.user.Gender;
 import pl.radek.chatter.infrastructure.repository.user.preference.UserPreferenceEntity;
 
+import java.util.UUID;
+
 @Entity
 @Table(name = "users")
 @Builder
@@ -29,6 +31,8 @@ public class UserEntity {
     @Enumerated(EnumType.STRING)
     private Gender gender;
     private int age;
+    @Column(name = "chatroom_id")
+    private UUID chatroomId;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_preference_id", referencedColumnName = "id")

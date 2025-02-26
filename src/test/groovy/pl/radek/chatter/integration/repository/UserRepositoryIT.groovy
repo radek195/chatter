@@ -27,6 +27,23 @@ class UserRepositoryIT extends Specification implements DataProvider {
         userService = new UserService.Impl(userRepository)
     }
     
+    def 'Should save new user'() {
+        given:
+            def user = getUser()
+        
+        when:
+            def id = userRepository.save(user.toEntity()).getId()
+        
+        then:
+            def foundUser= userRepository.findById(id).orElseThrow()
+        
+            foundUser.getNickname() == user.getNickname()
+            foundUser.getAge() == user.getAge()
+            foundUser.getGender() == user.getGender()
+            foundUser.getChatroomId() == user.getChatroomId()
+        
+    }
+    
     @Sql('/sql/InsertUser.sql')
     def 'Should save user preferences to existing user.'() {
         given:
