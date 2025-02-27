@@ -87,4 +87,15 @@ class UserRepositoryIT extends Specification implements DataProvider {
             19             | null
     }
     
+    @Sql('/sql/InsertMultipleUsers.sql')
+    def "Should find two users with unique chatroom."() {
+        when:
+            List<UserEntity> users = userRepository.findAllWithUniqueChatroomIdExcluding(8)
+        
+        then:
+            users.size() == 2
+            users.get(0).getId() != 8
+            users.get(1).getId() != 8
+    }
+    
 }
