@@ -3,6 +3,8 @@ package pl.radek.chatter.utils
 import pl.radek.chatter.domain.model.user.Gender
 import pl.radek.chatter.domain.model.user.User
 import pl.radek.chatter.domain.model.user.preference.UserPreference
+import pl.radek.chatter.infrastructure.repository.user.UserEntity
+import pl.radek.chatter.infrastructure.repository.user.preference.UserPreferenceEntity
 
 trait DataProvider {
   
@@ -29,5 +31,16 @@ trait DataProvider {
       .maxAge(maxAge)
       .build()
   }
+  
+  UserPreferenceEntity getUserPreferenceEntity(
+      def minAge = 25,
+      def maxAge = 38
+  ) {
+    UserPreferenceEntity.builder()
+        .minAge(minAge)
+        .maxAge(maxAge)
+        .build()
+  }
+  
   
 }
