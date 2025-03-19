@@ -5,11 +5,11 @@ spring:
         show-sql: true
         properties:
             hibernate:
-                default_schema: public
+                default_schema: chatter
                 format_sql: true
         database-platform: org.hibernate.dialect.H2Dialect
     datasource:
-        url: jdbc:h2:mem:testdb
+        url: "jdbc:h2:mem:testdb;INIT=CREATE SCHEMA IF NOT EXISTS chatter\\;SET SCHEMA chatter"
         driver-class-name: org.h2.Driver
         username: sa
         password: password

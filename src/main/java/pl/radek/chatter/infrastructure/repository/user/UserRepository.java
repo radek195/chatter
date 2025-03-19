@@ -9,9 +9,9 @@ import java.util.UUID;
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
 
     @Query(value = """
-                    SELECT * FROM users
+                    SELECT * FROM chatter.users
                         WHERE chatroom_id IN (
-                            select chatroom_id from users group by chatroom_id having count(*) = 1
+                            select chatroom_id from chatter.users group by chatroom_id having count(*) = 1
                         ) AND id != ?1
                     """,
             nativeQuery = true)
