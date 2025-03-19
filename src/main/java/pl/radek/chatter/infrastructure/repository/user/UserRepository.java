@@ -4,6 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
+import java.util.UUID;
 
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
 
@@ -16,4 +17,5 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
             nativeQuery = true)
     List<UserEntity> findAllWithUniqueChatroomIdExcluding(Long userId);
 
+    List<UserEntity> findAllByChatroomId(UUID chatroomId);
 }

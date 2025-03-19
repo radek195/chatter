@@ -98,4 +98,14 @@ class UserRepositoryIT extends Specification implements DataProvider {
             users.get(1).getId() != 8
     }
     
+    @Sql('/sql/InsertMultipleUsers.sql')
+    def "Should return all users with the same chatroomId"() {
+        when:
+            List<UserEntity> actual = userRepository.findAllByChatroomId(UUID.fromString("7734c459-41b9-43f7-8cfc-a93279a01059"))
+            
+        then:
+            actual.size() == 2
+            
+    }
+    
 }

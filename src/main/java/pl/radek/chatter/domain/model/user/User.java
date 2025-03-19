@@ -23,4 +23,14 @@ public class User {
                 .chatroomId(this.getChatroomId())
                 .build();
     }
+
+    public static User from(UserEntity userEntity) {
+        return User.builder()
+                .id(userEntity.getId())
+                .nickname(userEntity.getNickname())
+                .gender(userEntity.getGender())
+                .age(userEntity.getAge())
+                .chatroomId(userEntity.getChatroomId())
+                .build();
+    }
 }

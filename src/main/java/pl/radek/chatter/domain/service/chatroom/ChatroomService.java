@@ -2,6 +2,7 @@ package pl.radek.chatter.domain.service.chatroom;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import pl.radek.chatter.domain.model.user.User;
 import pl.radek.chatter.domain.service.user.matching.UserMatchingService;
 import pl.radek.chatter.infrastructure.exceptions.UserNotFoundException;
 import pl.radek.chatter.infrastructure.repository.user.UserEntity;
@@ -16,6 +17,8 @@ public interface ChatroomService {
     UUID getChatroom();
 
     UUID getMatchingChatroom(Long userId);
+
+    List<User> getCurrentUsersInRoom(UUID chatroomId);
 
     @Service
     @RequiredArgsConstructor
@@ -53,6 +56,13 @@ public interface ChatroomService {
 
             requestingUser.setChatroomId(chatroomId);
             return chatroomId;
+        }
+
+        @Override
+        public List<User> getCurrentUsersInRoom(UUID chatroomId) {
+            return userRepository.findAllByChatroomId(chatroomId).stream()
+                    .map(User::from)
+                    .toList();
         }
     }
 }
